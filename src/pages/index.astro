@@ -1,0 +1,69 @@
+---
+import Layout from "../layouts/Default.astro";
+import "../components/style.css";
+import { getUser, getUserAvatar } from "../discord_api";
+
+const userId = "343383572805058560";
+let user, avatarUrl;
+
+try {
+	user = await getUser(Astro.request, userId);
+	avatarUrl = getUserAvatar(user);
+} catch (error) {
+	console.error("Failed to fetch user data:", error);
+}
+---
+
+<Layout>
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			const imageContainer = document.querySelector(".image-container");
+			const sound = new Audio("/squish.mp3");
+			sound.preload = "auto";
+
+			let counter =
+				parseInt(localStorage.getItem("clickCounter"), 10) || 0;
+			const counterElement = document.getElementById("click-counter");
+			if (counterElement) {
+				counterElement.textContent = `Pets: ${counter}`;
+			}
+
+			if (imageContainer) {
+				imageContainer.addEventListener("click", () => {
+					sound.currentTime = 0;
+					sound
+						.play()
+						.catch((error) =>
+							console.error("Error playing sound:", error),
+						);
+
+					counter++;
+					localStorage.setItem("clickCounter", counter);
+					if (counterElement) {
+						counterElement.textContent = `Pets: ${counter}`;
+					}
+				});
+			}
+		});
+	</script>
+
+	<div class="content">
+		<h1>Pet the vending machine NOW</h1>
+		<p style="color: bisque;">Stats :: ====== ::</p>
+		<div id="click-counter" class="counter">Pets: 0</div>
+		<p style="color: bisque;">:: ============ ::</p>
+		<div class="parent-container">
+			<div class="image-container">
+				{avatarUrl ? (
+					<img src={avatarUrl} alt="Vee's Avatar" />
+				) : (
+					<p>Avatar not available? How</p>
+				)}
+			</div>
+		</div>
+		<img style="display: block;margin: 0 auto;width: 70%;" src="/urcute.png" alt="hey cutie"/>
+
+		<p style="color: rgb(70, 67, 64);margin: 0 auto;justify-content: center;align-items: center;">she may decieve you...... though regardless the urge to pat is something beyond this world</p>
+
+	</div>
+</Layout>

@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Indie+Flower&display=swap');
+
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+body {
+    background-color: #202021;
+    color: #e5e5e5;
+    font-family: "Gloria Hallelujah", cursive;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 15px;
+}
+
+a {
+    color: #e69696;
+    text-decoration: none;
+}
+
+.parent-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    width: 300px;
+    user-select: none;
+    -webkit-user-drag: none;
+    transition: transform 0.3s ease;
+}
+  
+.image-container img {
+    border-radius: 50%;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+  
+.image-container:hover {
+    cursor: grab;
+    transform: scale(1.05);
+}
+  
+.image-container:active {
+    cursor: grabbing;
+    transform: scale(0.95);
+}
+
+.counter {
+    font-size: 1.2em;
+}
+
+/* Footer */
+.footer {
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
