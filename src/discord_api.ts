@@ -1,10 +1,9 @@
-// import { getRuntime } from "@astrojs/cloudflare/runtime";
 
 const API_BASE = "https://canary.discord.com/api/v10";
 const CDN_BASE = "https://cdn.discordapp.com";
 
 export async function sendRequest<T extends object = any>(req: Request, route: string) {
-    const { DISCORD_TOKEN } = import.meta.env ?? getRuntime<any>(req)?.env;
+    const { DISCORD_TOKEN } = globalThis.DISCORD_TOKEN ?? import.meta.env;
 
     const res = await fetch(`${API_BASE}${route}`, {
         headers: {
